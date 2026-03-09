@@ -6,6 +6,7 @@ import emailjs from '@emailjs/browser'
 const Contact = () => {
     const formRef = useRef(null);
     const [loading, setLoading] = useState(false);
+
     const [formData,setFormData] = useState({
         name:'',
         email:'',
@@ -14,7 +15,6 @@ const Contact = () => {
 
     const handleChange = (e) => {
         const { name, value } = e.target;
-
         setFormData({...formData, [name]: value});
     }
 
@@ -28,11 +28,9 @@ const Contact = () => {
                 formRef.current,
                 import.meta.env.VITE_APP_EMAILJS_PUBLIC_KEY
             )
-            setFormData({
-                name: '',
-                email: '',
-                message: '',
-            })
+
+            formRef.current.reset()
+
         }catch(error){
             console.log('EmailJS Error:',error)
         }finally{
